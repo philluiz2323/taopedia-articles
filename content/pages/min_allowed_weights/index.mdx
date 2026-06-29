@@ -55,6 +55,14 @@ the chain actually requires can never exceed the number of neurons available to 
 self-weight submission above sits outside this comparison entirely
 ([`check_length`](https://github.com/opentensor/subtensor/blob/main/pallets/subtensor/src/subnets/weights.rs)).
 
+Because the stored value is a `u16`, an owner can configure any minimum from 0 up to 65,535. The
+`min()` cap means values at or above the subnet's neuron count converge to the same practical
+effect: a submission must then name essentially every registered neuron. Setting the minimum far
+above the subnet's `max_allowed_uids` ceiling adds no further requirement beyond that, since there
+are never more targets to point at than the subnet holds
+([Subnet Hyperparameters](https://docs.learnbittensor.org/subnets/subnet-hyperparameters),
+[`check_length`](https://github.com/opentensor/subtensor/blob/main/pallets/subtensor/src/subnets/weights.rs)).
+
 ## Default and Setting
 
 The documentation lists min allowed weights as a `u16` value with a default of 1, and marks it as
